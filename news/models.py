@@ -11,3 +11,8 @@ class News(models.Model):
 
     def __str__(self):
         return self.title + ' by ' + self.author.user_name
+
+    class Meta:
+        verbose_name = 'Новость'
+        verbose_name_plural = 'Новости'
+        ordering = ['-id']

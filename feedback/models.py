@@ -10,3 +10,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return "Comment by " + self.author.user_name
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+        ordering = ['-id']

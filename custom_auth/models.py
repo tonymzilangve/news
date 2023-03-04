@@ -9,13 +9,14 @@ class CustomUserManager(BaseUserManager):
 
     def create_superuser(self, email, user_name, password, **other_fields):
 
+        other_fields.setdefault('is_staff', True)
         other_fields.setdefault('is_admin', True)
         other_fields.setdefault('is_superuser', True)
         other_fields.setdefault('is_active', True)
 
-        if other_fields.get('is_admin') is not True:
+        if other_fields.get('is_staff') is not True:
             raise ValueError(
-                'Superuser must be assigned to is_admin=True.')
+                'Superuser must be assigned to is_staff=True.')
         if other_fields.get('is_superuser') is not True:
             raise ValueError(
                 'Superuser must be assigned to is_superuser=True.')
@@ -39,6 +40,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     user_name = models.CharField(max_length=150, unique=True)
     registered = models.DateTimeField(default=timezone.now)
     is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
     objects = CustomUserManager()
@@ -48,3 +50,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.user_name
+
+    class Meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
+        ordering = ['is_admin']
