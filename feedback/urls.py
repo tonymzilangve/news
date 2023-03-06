@@ -3,10 +3,9 @@ from rest_framework import routers
 from .views import *
 
 router = routers.SimpleRouter(trailing_slash=False)
-router.register(r'news', NewsViewSet)
+router.register(r'comments', CommentViewSet)
 
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('', include('feedback.urls'))
 ]

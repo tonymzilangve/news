@@ -12,8 +12,8 @@ class News(models.Model):
     def __str__(self):
         return self.title + ' by ' + self.author.username
 
-    def last_commments(self):
-        return self.comments.all().order_by('-timestamp')[:10]
+    def total_comments(self):
+        return self.comments.all().count()
 
     class Meta:
         verbose_name = 'Новость'

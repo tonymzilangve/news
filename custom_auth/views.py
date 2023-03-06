@@ -12,7 +12,7 @@ class AuthUserAPIView(GenericAPIView):
 
     def get(self, request):
         user = request.user
-        serializer = RegisterSerializer(user)
+        serializer = UserSerializer(user)
         return Response({'user': serializer.data})
 
 
