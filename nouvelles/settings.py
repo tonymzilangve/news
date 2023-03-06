@@ -23,6 +23,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'drf_yasg',
+    'django_filters',
 
     'news',
     'feedback',
@@ -91,6 +92,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 5,
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'custom_auth.jwt.JWTAuthentication',
+    # ]
 }
 
 LANGUAGE_CODE = 'en-us'

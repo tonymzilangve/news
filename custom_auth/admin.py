@@ -6,15 +6,15 @@ from .models import CustomUser
 
 class CustomUserConfig(UserAdmin):
     model = CustomUser
-    list_display = ('id', 'email', 'user_name', 'registered', 'is_admin', 'is_active')
-    list_display_links = ('id', 'email', 'user_name',)
-    search_fields = ('user_name',)
-    list_filter = ('is_admin', 'is_active', )
-    ordering = ('-registered',)
+    list_display = ('id', 'email', 'username', 'date_joined', 'is_staff', 'is_active')
+    list_display_links = ('id', 'email', 'username',)
+    search_fields = ('username', 'email',)
+    list_filter = ('is_staff', 'is_active', )
+    ordering = ('-is_staff',)
 
     fieldsets = (
-        (None, {'fields': ('email', 'user_name')}),
-        ('Permissions', {'fields': ('is_admin', 'is_active')})
+        (None, {'fields': ('email', 'username')}),
+        ('Permissions', {'fields': ('is_staff', 'is_active')})
     )
 
 

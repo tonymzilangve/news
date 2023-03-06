@@ -10,7 +10,10 @@ class News(models.Model):
     likes = models.PositiveIntegerField(default=0, verbose_name='Лайки')
 
     def __str__(self):
-        return self.title + ' by ' + self.author.user_name
+        return self.title + ' by ' + self.author.username
+
+    def last_commments(self):
+        return self.comments.all().order_by('-timestamp')[:10]
 
     class Meta:
         verbose_name = 'Новость'
