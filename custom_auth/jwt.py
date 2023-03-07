@@ -1,8 +1,8 @@
-from rest_framework.authentication import get_authorization_header, BaseAuthentication
+from django.conf import settings
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.authentication import BaseAuthentication
 from rest_framework import exceptions
 import jwt
-
-from django.conf import settings
 
 from .models import CustomUser
 
@@ -10,17 +10,10 @@ from .models import CustomUser
 class JWTAuthentication(BaseAuthentication):
 
     def authenticate(self, request):
-        auth_header = get_authorization_header(request)
+        token = request.COOKIES.get('jwt')
 
-        auth_data = auth_header.decode('utf-8')
-
-        auth_token = auth_data.split(" ")
-
-
-        if len(auth_token) != 2:   # if
-            raise exceptions.AuthenticationFailed('Token not valid')
-
-        token = auth_token[1]
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
 
         try:
             payload = jwt.decode(
@@ -42,6 +35,5 @@ class JWTAuthentication(BaseAuthentication):
             raise exceptions.AuthenticationFailed(
                 'User does not exist')
 
-        # super().authenticate(request)   # Not needed[!]
         return (user, token)
 

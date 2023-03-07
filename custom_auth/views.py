@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
@@ -41,11 +41,27 @@ class LoginAPIView(GenericAPIView):
         password = request.data.get('password', None)
 
         user = authenticate(username=email, password=password)
-
         login(request, user)
 
         if user:
+            response = Response()
             serializer = self.serializer_class(user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            response.set_cookie(key='jwt', value=user.token, httponly=True)
+            response.data = serializer.data
+            return response
 
         return Response({'message': "Invalid credentials, try again!"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class LogoutAPIView(GenericAPIView):
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        response = Response()
+        response.delete_cookie('jwt')
+        logout(request)
+        response.data = {
+            'message': 'Successfully logged out!'
+        }
+        return response

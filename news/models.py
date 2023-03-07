@@ -5,9 +5,9 @@ from custom_auth.models import CustomUser
 class News(models.Model):
     title = models.CharField(max_length=100, verbose_name='Заголовок')
     text = models.TextField(max_length=10000, verbose_name='Текст')
-    author = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, verbose_name='Автор')
+    author = models.ForeignKey(CustomUser, related_name='news', on_delete=models.SET_NULL, null=True, verbose_name='Автор')
     timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
-    likes = models.PositiveIntegerField(default=0, verbose_name='Лайки')
+    who_liked = models.ManyToManyField(CustomUser, related_name='liked', verbose_name='Лайкнули')
 
     def __str__(self):
         return self.title + ' by ' + self.author.username

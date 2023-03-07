@@ -1,6 +1,7 @@
 from rest_framework import permissions
 
 SAFE_METHODS = ('GET', 'HEAD', 'OPTIONS')
+EDIT_METHODS = ("PUT", "PATCH")
 
 
 class AuthorAllStaffAll(permissions.BasePermission):
@@ -23,18 +24,26 @@ class AuthorAllStaffAll(permissions.BasePermission):
 
 
 # for comments
-class AuthorAllStaffAllButEdit(AuthorAllStaffAll):
-
-    edit_methods = ("PUT", "PATCH")
+class AuthorAllStaffAllButEdit(permissions.BasePermission):
 
     def has_permission(self, request, view):
         if request.user.is_authenticated:
             return True
 
     def has_object_permission(self, request, view, obj):
-
-        if request.user.is_staff and request.method not in self.edit_methods:
+        if request.user.is_superuser:
             return True
 
-        # check author has PUT & PATCH
+        if request.user.is_staff and request.method not in EDIT_METHODS:
+            return True
+
+        if request.method not in EDIT_METHODS:
+            return True
+
+        if obj.author == request.user:
+            return True
+
+        if obj.news.author == request.user and request.method not in EDIT_METHODS:
+            return True
+
 

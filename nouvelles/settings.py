@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -27,7 +28,7 @@ INSTALLED_APPS = [
 
     'news',
     'feedback',
-    'custom_auth'
+    'custom_auth',
 ]
 
 MIDDLEWARE = [
@@ -92,9 +93,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 5,
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'custom_auth.jwt.JWTAuthentication',
-    # ]
 }
 
 LANGUAGE_CODE = 'en-us'
