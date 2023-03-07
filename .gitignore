@@ -1,3 +1,6 @@
 /news/tests/
 *_R.py
 /auth2/
+/custom_auth(pyjwt)/
+/custom_auth(simple)/
+/feedback(_R)/
