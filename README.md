@@ -1,7 +1,11 @@
 # news
 
+DOMAIN
+* mantoneu.beget.tech
+
 API-endpoint
-* f
+* mantoneu.beget.tech/auth/register
+* mantoneu.beget.tech/api/news
 
 __________________________
 
