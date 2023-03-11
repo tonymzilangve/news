@@ -10,7 +10,7 @@ class News(models.Model):
     who_liked = models.ManyToManyField(CustomUser, related_name='liked', verbose_name='Лайкнули')
 
     def __str__(self):
-        return self.title + ' by ' + self.author.username
+        return f'"{self.title}" (автор: {self.author.username})'
 
     def total_comments(self):
         return self.comments.all().count()

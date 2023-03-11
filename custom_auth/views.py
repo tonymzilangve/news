@@ -2,12 +2,12 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
+from .jwt import JWTAuthentication
 from .serializers import *
 from rest_framework import status, permissions
 
 
 class AuthUserAPIView(GenericAPIView):
-
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
