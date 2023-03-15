@@ -1,14 +1,16 @@
-# news
+# NEWS
 
 DOMAIN
 * mantoneu.beget.tech
 
+SWAGGER
+* http://mantoneu.beget.tech/docs/
+
 API-endpoint
-* mantoneu.beget.tech/auth/register
-* mantoneu.beget.tech/api/news
+* http://mantoneu.beget.tech/auth/register
+* http://mantoneu.beget.tech/api/news
 
 __________________________
-
 
 
 Pull the project from Github
